@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - SPUD Food Store</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <div class="logo-container">
+                    <img src="https://www.spud.edu.ph/assets/logo/spud_logo.png" alt="SPUD Logo" class="spud-logo">
+                </div>
+                <h1>SPUD Food Store</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="about.html">About & Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Product Details Section -->
+    <section class="product-details">
+        <div class="container">
+            <div class="product-detail-grid">
+                <!-- Product Image -->
+                <div class="product-detail-image">
+                    <img id="productImage" src="https://via.placeholder.com/500x500?text=Product" alt="Product">
+                </div>
+
+                <!-- Product Information -->
+                <div class="product-detail-info">
+                    <h2 id="productName">Product Name</h2>
+                    <p class="category" id="productCategory">Category</p>
+                    <div class="rating">
+                        <span>⭐⭐⭐⭐⭐</span>
+                        <span class="rating-count" id="productRating">(0 reviews)</span>
+                    </div>
+
+                    <div class="price-display">
+                        <p class="price-label">Price:</p>
+                        <p class="price-big" id="productPrice">₱0.00</p>
+                    </div>
+
+                    <h3>Product Description</h3>
+                    <p id="productDescription">Loading...</p>
+
+                    <h3>Specifications</h3>
+                    <ul class="specifications-list" id="productSpecs">
+                        <li>Loading...</li>
+                    </ul>
+
+                    <h3>Add to Cart</h3>
+                    <div class="cart-section">
+                        <div class="quantity-selector">
+                            <button class="qty-btn" type="button" onclick="decreaseQty()">−</button>
+                            <input type="number" id="quantity" value="1" min="1" max="10">
+                            <button class="qty-btn" type="button" onclick="increaseQty()">+</button>
+                        </div>
+                        <button class="btn btn-primary btn-large" type="button" onclick="addToCart()">🛒 Add to Cart</button>
+                    </div>
+
+                    <div class="cart-message" id="cartMessage" style="display: none;">
+                        ✓ Item added to cart successfully!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Products -->
+            <h3 class="related-title">💡 You Might Also Like</h3>
+            <div class="products-grid" id="relatedProducts">
+                <!-- Related products will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>SPUD Food Store</h3>
+                    <p>Your trusted online food destination</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/share/18dBPm9RZ5/" target="_blank" class="social-icon" title="Facebook">
+                            <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" class="social-logo-icon">
+                        </a>
+                        <a href="https://www.instagram.com/caramelo.celow/" target="_blank" class="social-icon" title="Instagram">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" class="social-logo-icon">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 SPUD Food Store. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Product Database - All 42 Products
+        const products = {
+            'pancakes': {
+                name: 'Fluffy Pancakes',
+                category: 'Breakfast',
+                price: '₱125.00',
+                image: 'https://www.cucinabyelena.com/wp-content/uploads/2024/09/Ultimate-Fluffy-Pancakes-Recipe-20-scaled.jpg',
+                description: 'Golden pancakes with maple syrup and fresh berries. Our signature fluffy pancakes are made with premium ingredients and served warm with butter.',
+                specs: [
+                    '<strong>Ingredients:</strong> Flour, eggs, milk, butter, maple syrup, fresh berries',
+                    '<strong>Serving Size:</strong> Stack of 3 pancakes with syrup and berries',
+                    '<strong>Preparation Time:</strong> 10-15 minutes',
+                    '<strong>Allergens:</strong> Contains gluten and dairy',
+                    '<strong>Availability:</strong> Available daily 6 AM - 2 PM',
+                    '<strong>Calories:</strong> Approximately 450 kcal'
+                ],
+                reviews: 128
+            },
+            'eggs-benedict': {
+                name: 'Eggs Benedict',
+                category: 'Breakfast',
+                price: '₱165.00',
+                image: 'https://www.allrecipes.com/thmb/yx66Ei2tdAbuODi__TrjRTj6Iuo=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/7915079_Quick-and-Easy-Eggs-Benedict-4x3-7f170c41a7224c6a802d7384b3ad7e0c.jpg',
+                description: 'Poached eggs with hollandaise sauce on English muffins. A classic breakfast dish made with fresh eggs and our special hollandaise sauce.',
+                specs: [
+                    '<strong>Ingredients:</strong> Poached eggs, English muffin, hollandaise sauce, ham',
+                    '<strong>Serving Size:</strong> 2 eggs on muffin with hollandaise',
+                    '<strong>Preparation Time:</strong> 15-20 minutes',
+                    '<strong>Allergens:</strong> Contains gluten and dairy',
+                    '<strong>Availability:</strong> Available daily 6 AM - 2 PM',
+                    '<strong>Calories:</strong> Approximately 520 kcal'
+                ],
+                reviews: 95
+            },
+            'french-toast': {
+                name: 'French Toast',
+                category: 'Breakfast',
+                price: '₱135.00',
+                image: 'https://www.allrecipes.com/thmb/kpI2DQrw7zDake_7B8wOJRkZ-6Y=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/ALR-recipe-16895-fluffy-french-toast-hero-01-ddmfs-4x3-7fd61e054f2c4f0f868b7ab0dd8767ae.jpg',
+                description: 'Crispy French toast with cinnamon and powdered sugar. Made with thick-cut bread and a special egg mixture.',
+                specs: [
+                    '<strong>Ingredients:</strong> Bread, eggs, milk, cinnamon, powdered sugar',
+                    '<strong>Serving Size:</strong> 3-4 slices with toppings',
+                    '<strong>Preparation Time:</strong> 12-15 minutes',
+                    '<strong>Allergens:</strong> Contains gluten, dairy, and eggs',
+                    '<strong>Availability:</strong> Available daily 6 AM - 2 PM',
+                    '<strong>Calories:</strong> Approximately 380 kcal'
+                ],
+                reviews: 112
+            },
+            'burrito': {
+                name: 'Breakfast Burrito',
+                category: 'Breakfast',
+                price: '₱155.00',
+                image: 'https://www.foodnetwork.com/content/dam/images/food/fullset/2011/4/22/0/CCHAP-110F_Breakfast-Burrito_s4x3.jpg',
+                description: 'Warm tortilla with scrambled eggs, bacon, and cheese. Packed with delicious breakfast ingredients.',
+                specs: [
+                    '<strong>Ingredients:</strong> Tortilla, eggs, bacon, cheese, peppers, onions',
+                    '<strong>Serving Size:</strong> 1 large burrito',
+                    '<strong>Preparation Time:</strong> 10-12 minutes',
+                    '<strong>Allergens:</strong> Contains gluten and dairy',
+                    '<strong>Availability:</strong> Available daily 6 AM - 2 PM',
+                    '<strong>Calories:</strong> Approximately 420 kcal'
+                ],
+                reviews: 103
+            },
+            'cheese-omelette': {
+                name: 'Cheese Omelette',
+                category: 'Breakfast',
+                price: '₱145.00',
+                image: 'https://www.emborg.com/app/uploads/2023/07/1200x900px_Easy_Cheese_Omelette.png',
+                description: 'Fluffy omelette filled with melted cheese and vegetables. Served with toast and jam.',
+                specs: [
+                    '<strong>Ingredients:</strong> Eggs, cheese, vegetables, butter, toast',
+                    '<strong>Serving Size:</strong> 1 omelette with toast',
+                    '<strong>Preparation Time:</strong> 10-15 minutes',
+                    '<strong>Allergens:</strong> Contains gluten and dairy',
+                    '<strong>Availability:</strong> Available daily 6 AM - 2 PM',
+                    '<strong>Calories:</strong> Approximately 380 kcal'
+                ],
+                reviews: 119
+            },
+            'waffles': {
+                name: 'Belgian Waffles',
+                category: 'Breakfast',
+                price: '₱155.00',
+                image: 'https://stordfkenticomedia.blob.core.windows.net/df-us/rms/media/recipesmedia/recipes/retail/x17/2010/apr/2020_belgian-style-waffles_16700_600x600.jpg?ext=.jpg',
+                description: 'Crispy Belgian waffles with whipped cream and strawberries. A sweet breakfast treat.',
+                specs: [
+                    '<strong>Ingredients:</strong> Flour, eggs, butter, milk, strawberries, whipped cream',
+                    '<strong>Serving Size:</strong> 2 waffles with toppings',
+                    '<strong>Preparation Time:</strong> 12-15 minutes',
+                    '<strong>Allergens:</strong> Contains gluten, dairy, and eggs',
+                    '<strong>Availability:</strong> Available daily 6 AM - 2 PM',
+                    '<strong>Calories:</strong> Approximately 480 kcal'
+                ],
+                reviews: 141
+            },
+            'bacon-eggs': {
+                name: 'Bacon & Egg Platter',
+                category: 'Breakfast',
+                price: '₱165.00',
+                image: 'https://www.shutterstock.com/image-photo/breakfast-fried-eggs-bacon-close-600nw-2480040459.jpg',
+                description: 'Crispy bacon with fried or scrambled eggs. Served with hash browns and toast.',
+                specs: [
+                    '<strong>Ingredients:</strong> Bacon, eggs, hash browns, toast, butter',
+                    '<strong>Serving Size:</strong> 2 eggs, 3 strips bacon, hash browns, toast',
+                    '<strong>Preparation Time:</strong> 12-18 minutes',
+                    '<strong>Allergens:</strong> Contains gluten and dairy',
+                    '<strong>Availability:</strong> Available daily 6 AM - 2 PM',
+                    '<strong>Calories:</strong> Approximately 580 kcal'
+                ],
+                reviews: 134
+            },
+            'granola': {
+                name: 'Granola Parfait',
+                category: 'Breakfast',
+                price: '₱115.00',
+                image: 'https://feelgoodfoodie.net/wp-content/uploads/2024/11/Fruit-Yogurt-Parfait-11.jpg',
+                description: 'Layers of yogurt, granola, and fresh berries. A healthy and delicious breakfast option.',
+                specs: [
+                    '<strong>Ingredients:</strong> Greek yogurt, granola, mixed berries, honey',
+                    '<strong>Serving Size:</strong> 1 cup serving',
+                    '<strong>Preparation Time:</strong> 5 minutes',
+                    '<strong>Allergens:</strong> Contains dairy and nuts',
+                    '<strong>Availability:</strong> Available daily 6 AM - 2 PM',
+                    '<strong>Calories:</strong> Approximately 320 kcal'
+                ],
+                reviews: 97
+            },
+            'burger': {
+                name: 'Deluxe Burger',
+                category: 'Main Course',
+                price: '₱245.00',
+                image: 'https://img.taste.com.au/Ldl7mSIx/taste/2016/11/deluxe-bacon-burgers-108150-1.jpeg',
+                description: 'Premium beef with fresh lettuce, tomato, and special sauce on a toasted brioche bun with fresh-cut fries.',
+                specs: [
+                    '<strong>Ingredients:</strong> Premium beef, fresh lettuce, tomato, pickles, onion, special sauce',
+                    '<strong>Serving Size:</strong> 1 burger with fries',
+                    '<strong>Preparation Time:</strong> 15-20 minutes',
+                    '<strong>Allergens:</strong> Contains gluten and dairy',
+                    '<strong>Availability:</strong> Available daily 11 AM - 9 PM',
+                    '<strong>Calories:</strong> Approximately 650 kcal'
+                ],
+                reviews: 142
+            },
+            'chicken-rice': {
+                name: 'Grilled Chicken & Rice',
+                category: 'Main Course',
+                price: '₱225.00',
+                image: 'https://www.allrecipes.com/thmb/fyA4b7FSkQVBSWFaENsyA3zaJwo=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/3296611-d1799f167c4945e5a9133be468cbd123.jpg',
+                description: 'Tender grilled chicken breast with fragrant jasmine rice. Perfectly seasoned and served with fresh vegetables.',
+                specs: [
+                    '<strong>Ingredients:</strong> Chicken breast, jasmine rice, vegetables, seasoning',
+                    '<strong>Serving Size:</strong> 1 chicken breast with rice',
+                    '<strong>Preparation Time:</strong> 18-22 minutes',
+                    '<strong>Allergens:</strong> May contain soy',
+                    '<strong>Availability:</strong> Available daily 11 AM - 9 PM',
+                    '<strong>Calories:</strong> Approximately 520 kcal'
+                ],
+                reviews: 118
+            },
+            'spaghetti': {
+                name: 'Spaghetti Marinara',
+                category: 'Main Course',
+                price: '₱195.00',
+                image: 'https://img.taste.com.au/a_TGmRKE/taste/2016/11/spaghetti-marinara-206397-1.jpg',
+                description: 'Al dente spaghetti with homemade tomato sauce. A classic Italian dish made with quality ingredients.',
+                specs: [
+                    '<strong>Ingredients:</strong> Spaghetti, tomato sauce, garlic, olive oil, basil',
+                    '<strong>Serving Size:</strong> 1 serving (generous portion)',
+                    '<strong>Preparation Time:</strong> 15-18 minutes',
+                    '<strong>Allergens:</strong> Contains gluten',
+                    '<strong>Availability:</strong> Available daily 11 AM - 9 PM',
+                    '<strong>Calories:</strong> Approximately 480 kcal'
+                ],
+                reviews: 134
+            },
+            'fish-fillet': {
+                name: 'Crispy Fish Fillet',
+                category: 'Main Course',
+                price: '₱215.00',
+                image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjgtFAn5Pr4XSI_GccWStPAjxcvUX2B85jFQ&s',
+                description: 'Golden-fried fish fillet with tartar sauce. Crispy on the outside and flaky on the inside.',
+                specs: [
+                    '<strong>Ingredients:</strong> Fresh fish fillet, flour batter, tartar sauce, lemon',
+                    '<strong>Serving Size:</strong> 1 fillet with sides',
+                    '<strong>Preparation Time:</strong> 12-15 minutes',
+                    '<strong>Allergens:</strong> Contains gluten and fish',
+                    '<strong>Availability:</strong> Available daily 11 AM - 9 PM',
+                    '<strong>Calories:</strong> Approximately 520 kcal'
+                ],
+                reviews: 126
+            },
+            'lasagna': {
+                name: 'Baked Lasagna',
+                category: 'Main Course',
+                price: '₱235.00',
+                image: 'https://www.thecountrycook.net/wp-content/uploads/2021/02/thumbnail-Homemade-Baked-Lasagna-recipe-scaled.jpg',
+                description: 'Layers of pasta, meat sauce, and melted cheese. Baked to perfection and served hot.',
+                specs: [
+                    '<strong>Ingredients:</strong> Lasagna pasta, ground beef, tomato sauce, cheese, herbs',
+                    '<strong>Serving Size:</strong> 1 generous slice',
+                    '<strong>Preparation Time:</strong> 20-25 minutes',
+                    '<strong>Allergens:</strong> Contains gluten and dairy',
+                    '<strong>Availability:</strong> Available daily 11 AM - 9 PM',
+                    '<strong>Calories:</strong> Approximately 580 kcal'
+                ],
+                reviews: 145
+            },
+            'steak': {
+                name: 'Grilled Steak',
+                category: 'Main Course',
+                price: '₱325.00',
+                image: 'https://iowagirleats.com/wp-content/uploads/2024/09/Perfect-Grilled-Steak-with-Herb-Butter-iowagirleats-Featured-1200x2-1.jpg',
+                description: 'Premium aged steak grilled to your preferred temperature. Served with seasonal vegetables and mashed potatoes.',
+                specs: [
+                    '<strong>Ingredients:</strong> Premium beef steak, seasonal vegetables, potatoes',
+                    '<strong>Serving Size:</strong> 8 oz steak with sides',
+                    '<strong>Preparation Time:</strong> 20-25 minutes',
+                    '<strong>Allergens:</strong> May contain dairy',
+                    '<strong>Availability:</strong> Available daily 5 PM - 9 PM',
+                    '<strong>Calories:</strong> Approximately 720 kcal'
+                ],
+                reviews: 167
+            },
+            'fried-chicken': {
+                name: 'Crispy Fried Chicken',
+                category: 'Main Course',
+                price: '₱185.00',
+                image: 'https://www.licious.in/blog/wp-content/uploads/2019/05/Drumsticks-liquidation-plan-05.jpg',
+                description: 'Juicy chicken pieces with crispy golden coating. Served with coleslaw and mashed potatoes.',
+                specs: [
+                    '<strong>Ingredients:</strong> Chicken pieces, flour batter, coleslaw, mashed potatoes',
+                    '<strong>Serving Size:</strong> 4 pieces with sides',
+                    '<strong>Preparation Time:</strong> 15-20 minutes',
+                    '<strong>Allergens:</strong> Contains gluten',
+                    '<strong>Availability:</strong> Available daily 11 AM - 9 PM',
+                    '<strong>Calories:</strong> Approximately 580 kcal'
+                ],
+                reviews: 156
+            },
+            'shrimp-pasta': {
+                name: 'Garlic Shrimp Pasta',
+                category: 'Main Course',
+                price: '₱255.00',
+                image: 'https://www.allrecipes.com/thmb/s7IfIWTs0B_ZduME0WHmdIjmEok=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/ALR-17048-garlic-shrimp-linguine-VAT-4x3-2-3bf1393f85fe42a48f7ddb8269040006.jpg',
+                description: 'Fresh shrimp in garlic butter sauce with al dente pasta. A premium seafood dish.',
+                specs: [
+                    '<strong>Ingredients:</strong> Fresh shrimp, pasta, garlic, butter, white wine sauce',
+                    '<strong>Serving Size:</strong> 1 generous serving',
+                    '<strong>Preparation Time:</strong> 15-18 minutes',
+                    '<strong>Allergens:</strong> Contains gluten, dairy, and shellfish',
+                    '<strong>Availability:</strong> Available daily 11 AM - 9 PM',
+                    '<strong>Calories:</strong> Approximately 520 kcal'
+                ],
+                reviews: 138
+            },
+            'bbq-ribs': {
+                name: 'BBQ Ribs Platter',
+                category: 'Main Course',
+                price: '₱275.00',
+                image: 'https://www.allrecipes.com/thmb/D-a2zwSNQHFnMQfVqSYeFuCgdmU=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/16091-baby-back-ribs-VAT-009-4x3-a113c43e18354129b80fea4416efeaba.jpg',
+                description: 'Tender ribs glazed with BBQ sauce. Slow-cooked to perfection and served with baked beans.',
+                specs: [
+                    '<strong>Ingredients:</strong> Pork ribs, BBQ sauce, baked beans, coleslaw',
+                    '<strong>Serving Size:</strong> Half rack with sides',
+                    '<strong>Preparation Time:</strong> 25-30 minutes',
+                    '<strong>Allergens:</strong> May contain soy',
+                    '<strong>Availability:</strong> Available daily 11 AM - 9 PM',
+                    '<strong>Calories:</strong> Approximately 680 kcal'
+                ],
+                reviews: 152
+            },
+            'pizza': {
+                name: 'Margherita Pizza',
+                category: 'Main Course',
+                price: '₱265.00',
+                image: 'https://safrescobaldistatic.blob.core.windows.net/media/2022/11/PIZZA-MARGHERITA.jpg',
+                description: 'Classic Italian pizza with fresh tomatoes, mozzarella, and basil. Baked in a wood-fired oven.',
+                specs: [
+                    '<strong>Ingredients:</strong> Dough, tomato sauce, fresh mozzarella, basil, olive oil',
+                    '<strong>Serving Size:</strong> 1 large pizza (8 slices)',
+                    '<strong>Preparation Time:</strong> 15-20 minutes',
+                    '<strong>Allergens:</strong> Contains gluten and dairy',
+                    '<strong>Availability:</strong> Available daily 11 AM - 9 PM',
+                    '<strong>Calories:</strong> Approximately 250 kcal per slice'
+                ],
+                reviews: 148
+            },
+            'chocolate-cake': {
+                name: 'Chocolate Cake',
+                category: 'Dessert',
+                price: '₱185.00',
+                image: 'https://assets-jpcust.jwpsrv.com/thumbnails/8Mhboqg7-1280.jpg',
+                description: 'Rich chocolate cake with creamy chocolate frosting. A delightful treat for chocolate lovers.',
+                specs: [
+                    '<strong>Ingredients:</strong> Flour, cocoa, butter, eggs, sugar, chocolate',
+                    '<strong>Serving Size:</strong> 1 slice (large)',
+                    '<strong>Preparation Time:</strong> Ready to serve',
+                    '<strong>Allergens:</strong> Contains gluten, dairy, and eggs',
+                    '<strong>Availability:</strong> Available daily 11 AM - 9 PM',
+                    '<strong>Calories:</strong> Approximately 420 kcal per slice'
+                ],
+                reviews: 156
+            },
+            'cheesecake': {
+                name: 'New York Cheesecake',
+                category: 'Dessert',
+                price: '₱175.00',
+                image: 'https://www.allrecipes.com/thmb/R4reoZMOwUpDh9SJnc5xgRYH4No=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/221142-new-york-style-cheesecake-VAT-Beauty-2x1-4d4d4be1f12b4473ae748387fff54290.jpg',
+                description: 'Creamy cheesecake with graham cracker crust. A timeless classic dessert.',
+                specs: [
+                    '<strong>Ingredients:</strong> Cream cheese, sugar, eggs, graham crackers',
+                    '<strong>Serving Size:</strong> 1 slice',
+                    '<strong>Preparation Time:</strong> Ready to serve',
+                    '<strong>Allergens:</strong> Contains gluten, dairy, and eggs',
+                    '<strong>Availability:</strong> Available daily 2 PM - 9 PM',
+                    '<strong>Calories:</strong> Approximately 380 kcal per slice'
+                ],
+                reviews: 145
+            },
+            'ice-cream': {
+                name: 'Premium Ice Cream',
+                category: 'Dessert',
+                price: '₱95.00',
+                image: 'https://laurenslatest.com/wp-content/uploads/2021/05/homemade-chocolate-ice-cream-02.jpg',
+                description: 'Creamy ice cream in various flavors. Our premium blend made with real ingredients.',
+                specs: [
+                    '<strong>Flavors Available:</strong> Vanilla, Chocolate, Strawberry, Mango',
+                    '<strong>Serving Size:</strong> 2 scoops',
+                    '<strong>Preparation Time:</strong> Ready to serve',
+                    '<strong>Allergens:</strong> Contains dairy and eggs',
+                    '<strong>Availability:</strong> Available daily 1 PM - 9 PM',
+                    '<strong>Calories:</strong> Approximately 250 kcal'
+                ],
+                reviews: 189
+            },
+            'brownies': {
+                name: 'Fudgy Brownies',
+                category: 'Dessert',
+                price: '₱105.00',
+                image: 'https://www.allrecipes.com/thmb/clZmX6t75JnKN3MXtYvc-nOKiNE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/16722-fudgy-brownies-ddmfs-4x3_6682-3e3d2d1bd21e41169a7c86b44dc8c2d0.jpg',
+                description: 'Dense and fudgy brownies with chocolate chips. Served with a scoop of ice cream.',
+                specs: [
+                    '<strong>Ingredients:</strong> Chocolate, butter, eggs, flour, cocoa, sugar',
+                    '<strong>Serving Size:</strong> 1 large brownie with ice cream',
+                    '<strong>Preparation Time:</strong> Ready to serve',
+                    '<strong>Allergens:</strong> Contains gluten, dairy, and eggs',
+                    '<strong>Availability:</strong> Available daily 1 PM - 9 PM',
+                    '<strong>Calories:</strong> Approximately 380 kcal'
+                ],
+                reviews: 167
+            },
+            'tiramisu': {
+                name: 'Tiramisu',
+                category: 'Dessert',
+                price: '₱155.00',
+                image: 'https://staticcookist.akamaized.net/wp-content/uploads/sites/22/2024/09/THUMB-VIDEO-2_rev1-56.jpeg',
+                description: 'Classic Italian dessert with ladyfingers, mascarpone, and cocoa. Light and refreshing.',
+                specs: [
+                    '<strong>Ingredients:</strong> Ladyfingers, mascarpone, coffee, cocoa powder, sugar',
+                    '<strong>Serving Size:</strong> 1 slice',
+                    '<strong>Preparation Time:</strong> Ready to serve',
+                    '<strong>Allergens:</strong> Contains gluten, dairy, and eggs',
+                    '<strong>Availability:</strong> Available daily 2 PM - 9 PM',
+                    '<strong>Calories:</strong> Approximately 320 kcal per slice'
+                ],
+                reviews: 142
+            },
+            'apple-pie': {
+                name: 'Apple Pie',
+                category: 'Dessert',
+                price: '₱135.00',
+                image: 'https://joyfoodsunshine.com/wp-content/uploads/2019/08/best-apple-pie-recipe-from-scratch-8-500x500.jpg',
+                description: 'Homemade apple pie with flaky crust. Served warm with vanilla ice cream.',
+                specs: [
+                    '<strong>Ingredients:</strong> Apples, flour, butter, sugar, cinnamon, spices',
+                    '<strong>Serving Size:</strong> 1 slice with ice cream',
+                    '<strong>Preparation Time:</strong> Ready to serve',
+                    '<strong>Allergens:</strong> Contains gluten and dairy',
+                    '<strong>Availability:</strong> Available daily 1 PM - 9 PM',
+                    '<strong>Calories:</strong> Approximately 380 kcal per slice'
+                ],
+                reviews: 128
+            },
+            'lemon-tart': {
+                name: 'Lemon Tart',
+                category: 'Dessert',
+                price: '₱145.00',
+                image: 'https://happyvegannie.com/wp-content/uploads/2024/07/vegan-lemon-tarts-1200x1200-1-1.jpg',
+                description: 'Tangy lemon custard in a buttery pastry shell. A refreshing citrus dessert.',
+                specs: [
+                    '<strong>Ingredients:</strong> Lemon juice, butter, eggs, sugar, pastry shell',
+                    '<strong>Serving Size:</strong> 1 slice',
+                    '<strong>Preparation Time:</strong> Ready to serve',
+                    '<strong>Allergens:</strong> Contains gluten, dairy, and eggs',
+                    '<strong>Availability:</strong> Available daily 1 PM - 9 PM',
+                    '<strong>Calories:</strong> Approximately 340 kcal per slice'
+                ],
+                reviews: 116
+            },
+            'cookies': {
+                name: 'Chocolate Chip Cookies',
+                category: 'Dessert',
+                price: '₱85.00',
+                image: 'https://tastesbetterfromscratch.com/wp-content/uploads/2020/02/Double-Chocolate-Cookies24-Thumbnail-1.jpg',
+                description: 'Classic chocolate chip cookies. Fresh baked daily with chunks of premium chocolate.',
+                specs: [
+                    '<strong>Ingredients:</strong> Flour, butter, sugar, eggs, chocolate chips, vanilla',
+                    '<strong>Serving Size:</strong> 4 cookies',
+                    '<strong>Preparation Time:</strong> Ready to serve',
+                    '<strong>Allergens:</strong> Contains gluten, dairy, and eggs',
+                    '<strong>Availability:</strong> Available daily 10 AM - 9 PM',
+                    '<strong>Calories:</strong> Approximately 480 kcal per serving'
+                ],
+                reviews: 198
+            },
+            'panna-cotta': {
+                name: 'Panna Cotta',
+                category: 'Dessert',
+                price: '₱125.00',
+                image: 'https://www.allrecipes.com/thmb/NlP50cO2BjJdN4uGvl5JhW0Rx2A=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/AR-72567-Panna-cotta-ddmfs-4x3-14ae724a2a8e4ca3a79c5e27b2b61994.jpg',
+                description: 'Silky smooth panna cotta with berry compote. An elegant Italian dessert.',
+                specs: [
+                    '<strong>Ingredients:</strong> Heavy cream, milk, sugar, gelatin, berries',
+                    '<strong>Serving Size:</strong> 1 serving with berry topping',
+                    '<strong>Preparation Time:</strong> Ready to serve',
+                    '<strong>Allergens:</strong> Contains dairy',
+                    '<strong>Availability:</strong> Available daily 2 PM - 9 PM',
+                    '<strong>Calories:</strong> Approximately 280 kcal'
+                ],
+                reviews: 134
+            },
+            'donuts': {
+                name: 'Glazed Donuts',
+                category: 'Dessert',
+                price: '₱65.00',
+                image: 'https://redstaryeast.com/wp-content/uploads/2024/12/Glazed-doughnuts_800x1200-72dpi.jpg',
+                description: 'Fresh glazed donuts. Soft inside with a sweet glaze coating.',
+                specs: [
+                    '<strong>Ingredients:</strong> Flour, sugar, eggs, milk, glaze, oil',
+                    '<strong>Serving Size:</strong> 3 donuts',
+                    '<strong>Preparation Time:</strong> Ready to serve',
+                    '<strong>Allergens:</strong> Contains gluten, dairy, and eggs',
+                    '<strong>Availability:</strong> Available daily 7 AM - 8 PM',
+                    '<strong>Calories:</strong> Approximately 540 kcal per serving'
+                ],
+                reviews: 172
+            },
+            'mousse': {
+                name: 'Chocolate Mousse',
+                category: 'Dessert',
+                price: '₱115.00',
+                image: 'https://www.allrecipes.com/thmb/h1-rRJcI_8AMavPqqlBnwVIO3vA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/IMG_8145_Chocolate-Mousse-for-Beginners-4x3-cropped-757ae43035ff48cc8bc9ccffbd6cf3b7.jpg',
+                description: 'Airy chocolate mousse with a rich cocoa flavor. A light and luxurious dessert.',
+                specs: [
+                    '<strong>Ingredients:</strong> Dark chocolate, eggs, sugar, butter, cocoa',
+                    '<strong>Serving Size:</strong> 1 serving',
+                    '<strong>Preparation Time:</strong> Ready to serve',
+                    '<strong>Allergens:</strong> Contains dairy and eggs',
+                    '<strong>Availability:</strong> Available daily 2 PM - 9 PM',
+                    '<strong>Calories:</strong> Approximately 320 kcal'
+                ],
+                reviews: 141
+            },
+            'iced-coffee': {
+                name: 'Iced Coffee',
+                category: 'Beverage',
+                price: '₱95.00',
+                image: 'https://www.allrecipes.com/thmb/Hqro0FNdnDEwDjrEoxhMfKdWfOY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/21667-easy-iced-coffee-ddmfs-4x3-0093-7becf3932bd64ed7b594d46c02d0889f.jpg',
+                description: 'Cold brew coffee with creamy foam. A refreshing beverage perfect for any time of day.',
+                specs: [
+                    '<strong>Ingredients:</strong> Coffee, ice, milk, sugar (optional)',
+                    '<strong>Serving Size:</strong> 16 oz cup',
+                    '<strong>Preparation Time:</strong> 3-5 minutes',
+                    '<strong>Allergens:</strong> Contains dairy (optional)',
+                    '<strong>Availability:</strong> Available daily 7 AM - 9 PM',
+                    '<strong>Calories:</strong> Approximately 45 kcal (with milk: 90)'
+                ],
+                reviews: 189
+            },
+            'orange-juice': {
+                name: 'Fresh Orange Juice',
+                category: 'Beverage',
+                price: '₱85.00',
+                image: 'https://www.alphafoodie.com/wp-content/uploads/2020/11/Orange-Ginger-Juice-1-of-1.jpeg',
+                description: 'Freshly squeezed orange juice. 100% natural, no added sugar.',
+                specs: [
+                    '<strong>Ingredients:</strong> Fresh oranges',
+                    '<strong>Serving Size:</strong> 12 oz glass',
+                    '<strong>Preparation Time:</strong> 2-3 minutes',
+                    '<strong>Allergens:</strong> None',
+                    '<strong>Availability:</strong> Available daily 7 AM - 9 PM',
+                    '<strong>Calories:</strong> Approximately 110 kcal'
+                ],
+                reviews: 145
+            },
+            'smoothie': {
+                name: 'Berry Smoothie',
+                category: 'Beverage',
+                price: '₱115.00',
+                image: 'https://evergreenkitchen.ca/wp-content/uploads/2024/03/Blueberry-Raspberry-Smoothie-Evergreen-Kitchen-1.jpg',
+                description: 'Mixed berry smoothie with yogurt. A healthy and nutritious drink.',
+                specs: [
+                    '<strong>Ingredients:</strong> Mixed berries, yogurt, milk, honey',
+                    '<strong>Serving Size:</strong> 16 oz',
+                    '<strong>Preparation Time:</strong> 5 minutes',
+                    '<strong>Allergens:</strong> Contains dairy',
+                    '<strong>Availability:</strong> Available daily 7 AM - 9 PM',
+                    '<strong>Calories:</strong> Approximately 180 kcal'
+                ],
+                reviews: 156
+            },
+            'lemon-tea': {
+                name: 'Lemon Iced Tea',
+                category: 'Beverage',
+                price: '₱75.00',
+                image: 'https://images.squarespace-cdn.com/content/v1/5a6eaf7c6957da732ea347a3/1746407917051-431L7L4HKFCGRXZ07W7A/smacked-puer-lemon-tea.jpg',
+                description: 'Refreshing lemon iced tea. Perfect for a hot day.',
+                specs: [
+                    '<strong>Ingredients:</strong> Black tea, lemon juice, sugar, ice',
+                    '<strong>Serving Size:</strong> 16 oz cup',
+                    '<strong>Preparation Time:</strong> 3-5 minutes',
+                    '<strong>Allergens:</strong> None',
+                    '<strong>Availability:</strong> Available daily 9 AM - 9 PM',
+                    '<strong>Calories:</strong> Approximately 60 kcal'
+                ],
+                reviews: 128
+            },
+            'mango-shake': {
+                name: 'Mango Shake',
+                category: 'Beverage',
+                price: '₱105.00',
+                image: 'https://hungryinthailand.com/wp-content/uploads/2024/03/thai-mango-shake.webp',
+                description: 'Thick and creamy mango shake with milk. Made with fresh mango puree.',
+                specs: [
+                    '<strong>Ingredients:</strong> Fresh mango, milk, ice, sugar',
+                    '<strong>Serving Size:</strong> 16 oz cup',
+                    '<strong>Preparation Time:</strong> 5-7 minutes',
+                    '<strong>Allergens:</strong> Contains dairy',
+                    '<strong>Availability:</strong> Available daily 10 AM - 9 PM',
+                    '<strong>Calories:</strong> Approximately 185 kcal'
+                ],
+                reviews: 167
+            },
+            'caramel-latte': {
+                name: 'Caramel Latte',
+                category: 'Beverage',
+                price: '₱125.00',
+                image: 'https://bakingmischief.com/wp-content/uploads/2022/03/iced-caramel-latte-image-feature.jpg',
+                description: 'Hot espresso with steamed milk and caramel sauce. A sweet coffee drink.',
+                specs: [
+                    '<strong>Ingredients:</strong> Espresso, milk, caramel sauce, whipped cream',
+                    '<strong>Serving Size:</strong> 12 oz cup',
+                    '<strong>Preparation Time:</strong> 5-7 minutes',
+                    '<strong>Allergens:</strong> Contains dairy',
+                    '<strong>Availability:</strong> Available daily 7 AM - 9 PM',
+                    '<strong>Calories:</strong> Approximately 250 kcal'
+                ],
+                reviews: 174
+            },
+            'mango-juice': {
+                name: 'Fresh Mango Juice',
+                category: 'Beverage',
+                price: '₱95.00',
+                image: 'https://cdn1.foodviva.com/static-content/food-images/juice-recipes/mango-juice/mango-juice.jpg',
+                description: 'Freshly made mango juice. Pure mango goodness in a glass.',
+                specs: [
+                    '<strong>Ingredients:</strong> Fresh mango',
+                    '<strong>Serving Size:</strong> 12 oz glass',
+                    '<strong>Preparation Time:</strong> 3-5 minutes',
+                    '<strong>Allergens:</strong> None',
+                    '<strong>Availability:</strong> Available daily 7 AM - 9 PM',
+                    '<strong>Calories:</strong> Approximately 135 kcal'
+                ],
+                reviews: 151
+            },
+            'strawberry-shake': {
+                name: 'Strawberry Shake',
+                category: 'Beverage',
+                price: '₱105.00',
+                image: 'https://www.thehungrybites.com/wp-content/uploads/2023/06/Strawberry-milkshake-frappuccino-featured.jpg',
+                description: 'Creamy strawberry shake with fresh strawberries. A sweet and satisfying drink.',
+                specs: [
+                    '<strong>Ingredients:</strong> Strawberries, milk, ice cream, sugar',
+                    '<strong>Serving Size:</strong> 16 oz cup',
+                    '<strong>Preparation Time:</strong> 5-7 minutes',
+                    '<strong>Allergens:</strong> Contains dairy',
+                    '<strong>Availability:</strong> Available daily 10 AM - 9 PM',
+                    '<strong>Calories:</strong> Approximately 220 kcal'
+                ],
+                reviews: 158
+            },
+            'iced-choco': {
+                name: 'Iced Chocolate',
+                category: 'Beverage',
+                price: '₱105.00',
+                image: 'https://www.davidlebovitz.com/wp-content/uploads/2011/06/5815766509_1667e983a2.jpg',
+                description: 'Cold chocolate drink with whipped cream. Perfect for chocolate lovers.',
+                specs: [
+                    '<strong>Ingredients:</strong> Chocolate, milk, ice, whipped cream',
+                    '<strong>Serving Size:</strong> 16 oz cup',
+                    '<strong>Preparation Time:</strong> 5 minutes',
+                    '<strong>Allergens:</strong> Contains dairy',
+                    '<strong>Availability:</strong> Available daily 8 AM - 9 PM',
+                    '<strong>Calories:</strong> Approximately 280 kcal'
+                ],
+                reviews: 165
+            },
+            'watermelon-juice': {
+                name: 'Watermelon Juice',
+                category: 'Beverage',
+                price: '₱85.00',
+                image: 'https://thedizzycook.com/wp-content/uploads/2025/07/Watermelon-Juice-Main-2.jpg',
+                description: 'Fresh watermelon juice. A refreshing and hydrating beverage.',
+                specs: [
+                    '<strong>Ingredients:</strong> Fresh watermelon',
+                    '<strong>Serving Size:</strong> 12 oz glass',
+                    '<strong>Preparation Time:</strong> 3-5 minutes',
+                    '<strong>Allergens:</strong> None',
+                    '<strong>Availability:</strong> Available daily 7 AM - 9 PM',
+                    '<strong>Calories:</strong> Approximately 60 kcal'
+                ],
+                reviews: 142
+            },
+            'matcha-latte': {
+                name: 'Matcha Latte',
+                category: 'Beverage',
+                price: '₱135.00',
+                image: 'https://cdn.loveandlemons.com/wp-content/uploads/2023/06/iced-matcha-latte.jpg',
+                description: 'Vibrant green matcha tea with steamed milk. A trendy and healthy choice.',
+                specs: [
+                    '<strong>Ingredients:</strong> Matcha powder, milk, honey, water',
+                    '<strong>Serving Size:</strong> 12 oz cup',
+                    '<strong>Preparation Time:</strong> 5-8 minutes',
+                    '<strong>Allergens:</strong> Contains dairy',
+                    '<strong>Availability:</strong> Available daily 8 AM - 9 PM',
+                    '<strong>Calories:</strong> Approximately 120 kcal'
+                ],
+                reviews: 146
+            },
+            'passion-fruit': {
+                name: 'Passion Fruit Juice',
+                category: 'Beverage',
+                price: '₱95.00',
+                image: 'https://www.thelittleepicurean.com/wp-content/uploads/2021/03/passionfruit-juice-horizontal.jpg',
+                description: 'Tropical passion fruit juice. Exotic and refreshing flavors.',
+                specs: [
+                    '<strong>Ingredients:</strong> Fresh passion fruit',
+                    '<strong>Serving Size:</strong> 12 oz glass',
+                    '<strong>Preparation Time:</strong> 3-5 minutes',
+                    '<strong>Allergens:</strong> None',
+                    '<strong>Availability:</strong> Available daily 7 AM - 9 PM',
+                    '<strong>Calories:</strong> Approximately 90 kcal'
+                ],
+                reviews: 128
+            }
+        };
+
+        function getProductFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('product') || 'burger';
+        }
+
+        function updateProductDetails() {
+            const productId = getProductFromURL();
+            const product = products[productId];
+
+            if (!product) {
+                document.querySelector('.product-details').innerHTML = '<p>Product not found!</p>';
+                return;
+            }
+
+            // Update product information
+            document.getElementById('productName').textContent = product.name;
+            document.getElementById('productCategory').textContent = product.category;
+            document.getElementById('productPrice').textContent = product.price;
+            document.getElementById('productImage').src = product.image;
+            document.getElementById('productImage').alt = product.name;
+            document.getElementById('productDescription').textContent = product.description;
+            document.getElementById('productRating').textContent = `(${product.reviews} reviews)`;
+
+            // Update specifications
+            const specsHTML = product.specs.map(spec => `<li>${spec}</li>`).join('');
+            document.getElementById('productSpecs').innerHTML = specsHTML;
+
+            // Update page title
+            document.title = `${product.name} - SPUD Food Store`;
+
+            // Load related products
+            loadRelatedProducts(productId);
+        }
+
+        function loadRelatedProducts(currentProductId) {
+            const relatedContainer = document.getElementById('relatedProducts');
+            const productKeys = Object.keys(products);
+            const related = productKeys.filter(key => key !== currentProductId).slice(0, 3);
+
+            relatedContainer.innerHTML = related.map(key => {
+                const p = products[key];
+                return `
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="${p.image}" alt="${p.name}">
+                        </div>
+                        <div class="product-info">
+                            <h3>${p.name}</h3>
+                            <p class="price">${p.price}</p>
+                            <p class="description">${p.description.substring(0, 50)}...</p>
+                            <a href="product-details.html?product=${key}" class="btn btn-secondary">View Details</a>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function increaseQty() {
+            const qty = document.getElementById('quantity');
+            if (qty.value < 10) {
+                qty.value = parseInt(qty.value) + 1;
+            }
+        }
+
+        function decreaseQty() {
+            const qty = document.getElementById('quantity');
+            if (qty.value > 1) {
+                qty.value = parseInt(qty.value) - 1;
+            }
+        }
+
+        function addToCart() {
+            const quantity = document.getElementById('quantity').value;
+            const message = document.getElementById('cartMessage');
+            message.style.display = 'block';
+            setTimeout(() => {
+                message.style.display = 'none';
+            }, 3000);
+        }
+
+        // Load product details when page loads
+        window.addEventListener('load', updateProductDetails);
+    </script>
+</body>
+</html>

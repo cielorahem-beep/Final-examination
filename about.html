@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About & Contact - SPUD Food Store</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <div class="logo-container">
+                    <img src="https://www.spud.edu.ph/assets/logo/spud_logo.png" alt="SPUD Logo" class="spud-logo">
+                </div>
+                <h1>SPUD Food Store</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="about.html" class="active">About & Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header" style="background-image: url('https://t3.ftcdn.net/jpg/03/18/92/98/360_F_318929874_BjOfHFRXjHyJ3e3mnpg2G9nQtfc2T7DV.jpg'); background-size: cover; background-position: center; background-attachment: fixed;">
+        <div class="header-overlay"></div>
+        <div class="container">
+            <h2>📞 About & Contact Us</h2>
+            <p>We'd love to stay connected with you!</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text">
+                    <h2>About SPUD Food Store</h2>
+                    <h3>Our Story</h3>
+                    <p>SPUD Food Store was founded with a simple mission: to bring fresh, delicious, and affordable food to everyone through an easy-to-use online platform. What started as a small kitchen operation has grown into a trusted online food destination serving thousands of happy customers.</p>
+                    
+                    <h3>Our Mission</h3>
+                    <p>We are committed to providing the highest quality food products with exceptional customer service. We believe that great food should be accessible to everyone, and we work tirelessly to ensure every order is prepared with care and delivered on time.</p>
+
+                    <h3>Why Choose SPUD?</h3>
+                    <ul class="features-list">
+                        <li>✓ Fresh ingredients sourced daily</li>
+                        <li>✓ Quick preparation and delivery</li>
+                        <li>✓ Competitive pricing</li>
+                        <li>✓ 24/7 customer support</li>
+                        <li>✓ Wide variety of menu options</li>
+                        <li>✓ Reliable and secure ordering</li>
+                    </ul>
+                </div>
+
+                <div class="about-image">
+                    <img src="https://t3.ftcdn.net/jpg/03/18/92/98/360_F_318929874_BjOfHFRXjHyJ3e3mnpg2G9nQtfc2T7DV.jpg" alt="SPUD Food Store">
+                    <div class="about-highlight">
+                        <p><strong>Founded:</strong> 2026</p>
+                        <p><strong>Location:</strong> Dumaguete City</p>
+                        <p><strong>Customers Served:</strong> 5,000+</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <h2>📬 Get In Touch With Us</h2>
+            <div class="contact-grid">
+                <!-- Contact Information -->
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    
+                    <div class="info-item">
+                        <h4>📍 Address</h4>
+                        <p>St. Paul University Dumaguete<br>
+                           Dumaguete City, Negros Oriental<br>
+                           Philippines 6200</p>
+                    </div>
+
+                    <div class="info-item">
+                        <h4>📞 Phone</h4>
+                        <p><a href="tel:+639123456789">(+63) 933-041-4327</a></p>
+                    </div>
+
+                    <div class="info-item">
+                        <h4>✉️ Email</h4>
+                        <p><a href="mailto:info@spudfoodstore.com">Cielorahem@gmail.com</a></p>
+                    </div>
+
+                    <div class="info-item">
+                        <h4>⏰ Business Hours</h4>
+                        <p>Monday - Friday: 11:00 AM - 9:00 PM<br>
+                           Saturday: 10:00 AM - 10:00 PM<br>
+                           Sunday: 12:00 PM - 8:00 PM</p>
+                    </div>
+
+                    <div class="info-item">
+                        <h4>Follow Us On Social Media</h4>
+                        <div class="social-links-large">
+                            <a href="https://www.facebook.com/share/18dBPm9RZ5/" target="_blank" class="social-item" title="Facebook">
+                                <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" class="social-logo">
+                                Facebook
+                            </a>
+                            <a href="https://www.instagram.com/caramelo.celow/" target="_blank" class="social-item" title="Instagram">
+                                <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" class="social-logo">
+                                Instagram
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="contact-form">
+                    <h3>Send us a Message</h3>
+                    <form id="contactForm" onsubmit="handleFormSubmit(event)">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required placeholder="Enter your email">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" required placeholder="What is this about?">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="6" required placeholder="Type your message here..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-large">Send Message</button>
+                    </form>
+                    <div id="formMessage" style="display: none; margin-top: 15px; padding: 15px; background-color: #d4edda; color: #155724; border-radius: 5px;">
+                        ✓ Thank you for your message! We will get back to you soon.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>SPUD Food Store</h3>
+                    <p>Your trusted online food destination</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/share/18dBPm9RZ5/" target="_blank" class="social-icon" title="Facebook">
+                            <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" class="social-logo-icon">
+                        </a>
+                        <a href="https://www.instagram.com/caramelo.celow/" target="_blank" class="social-icon" title="Instagram">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" class="social-logo-icon">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 SPUD Food Store. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const form = document.getElementById('contactForm');
+            const message = document.getElementById('formMessage');
+            
+            // Show success message
+            message.style.display = 'block';
+            
+            // Reset form
+            form.reset();
+            
+            // Hide message after 5 seconds
+            setTimeout(() => {
+                message.style.display = 'none';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
